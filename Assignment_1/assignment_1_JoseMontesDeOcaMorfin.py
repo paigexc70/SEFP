@@ -12,6 +12,14 @@
 
 import math
 
+print("")
+print("Hello, welcome to the Looking for Fermat's Last Therorem Near Misses program. ")
+print("In this program you will be asked to select a 'n' power and a maximum number.")
+print("What this program does, is it goes through every combination of numbers from 1 - the max")
+print("and it will raise them both to the 'n'th power that was selected and add the two.")
+print("Then it will try and find the closest possible number 'z' that makes this equation true...")
+print("(x**n) + (y**n) = (z**n)")
+print("")
 
 success = False
 while success == False:             # this loops keeps looping until the user inputs a number greater than 2 and less than 12 
@@ -57,9 +65,10 @@ for i in range(1,max + 1):                            # Here we are going to do 
         
         
         print("X : %d\nY: %d\nZ: %d\nActual Miss: %d\nRelative Miss: %.2f%%" % (i, j, z, miss, relative_percentage))
+        print("")
         
-print("The smallest possible miss was...\nX: %d\nY: %d\nZ: %d\nActual Miss: %d\n Smallest Relative Miss: %.2f%%" % (smallest_x, smallest_y, smallest_z, smallest_miss, smallest_miss_percentage))
-        
+print("The smallest possible miss was...\nX: %d\nY: %d\nZ: %d\nActual Miss: %d\nSmallest Relative Miss: %.2f%%" % (smallest_x, smallest_y, smallest_z, smallest_miss, smallest_miss_percentage))
+print("")
     
 
 
