@@ -51,8 +51,9 @@ class Game:
         pass
 
     def new(self):
-        pass
-        
+        self.player = Player()
+             
+    def quit(self):
         pygame.quit()
         sys.exit()
         
