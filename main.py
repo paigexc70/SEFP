@@ -31,9 +31,7 @@ class Game:
         pass
             
     def draw_grid(self):
-        for i in range(0, 500, 50):
-            pygame.draw.line(self.DISPLAYSURF, (255, 255, 255), (0, i), (500, i))
-            pygame.draw.line(self.DISPLAYSURF, (255, 255, 255),(i, 0), (i, 500))
+        pass
 
     def update(self):
         pass
