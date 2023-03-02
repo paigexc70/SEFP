@@ -21,11 +21,17 @@ class Player(pygame.sprite.Sprite):
         self.x += dx
         self.y += dy
 
+    def get_random(self, x=0, y=0):
+        self.x = random.randint(0, GRID_SIZE - 1)
+        self.y = random.randint(0, GRID_SIZE - 1)
+        
+        
+    
     def update(self):
         self.rect.x = self.x * CELL_SIZE
         self.rect.y = self.y * CELL_SIZE
 
-
+    
 # all_sprites = pygame.sprite.Group()
 
 class Game:
@@ -36,16 +42,25 @@ class Game:
         self.DISPLAYSURF = pygame.display.set_mode((WINDOW_SIZE), pygame.RESIZABLE)
         self.clock = pygame.time.Clock()
         self.FPS = 60
-        
+    
+
+    def run_random(self):
+        self.playing = True
+        while self.playing:
+            self.dt = self.clock.tick(self.FPS)
+            self.random_events()
+            self.draw()
+            self.update()
+            pygame.display.update()
+    
 
     def run(self):
         self.playing = True
         while self.playing:
             self.dt = self.clock.tick(self.FPS)
-            self.events()
+            self.move_events()
             self.draw()
             self.update()
-            #self.new()
             pygame.display.update()
             
     def draw(self):
@@ -74,7 +89,22 @@ class Game:
         pygame.quit()
         sys.exit()
 
-    def events(self):
+    def random_events(self):
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                 self.quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.quit()
+                if event.key == pygame.K_LEFT:
+                    self.player.get_random()
+                if event.key == pygame.K_RIGHT:
+                    self.player2.get_random()
+
+    def move_events(self):
+        players_move_count = []
+        player1_move_count = 0
+        player2_move_count = 0
         for event in pygame.event.get():
             if event.type == QUIT:
                  self.quit()
@@ -83,27 +113,53 @@ class Game:
                     self.quit()
                 if event.key == pygame.K_LEFT:
                     self.player.move(dx=-1)
+                    player1_move_count += 1
                 if event.key == pygame.K_RIGHT:
                     self.player.move(dx=1)
+                    player1_move_count += 1
                 if event.key == pygame.K_UP:
                     self.player.move(dy=-1)
+                    player1_move_count += 1
                 if event.key == pygame.K_DOWN:
                     self.player.move(dy=1)
+                    player1_move_count += 1
                 if event.key == ord('a'):
                     self.player2.move(dx=-1)
+                    player2_move_count += 1
                 if event.key == ord('d'):
                     self.player2.move(dx=1)
+                    player2_move_count += 1
                 if event.key == ord('w'):
                     self.player2.move(dy=-1)
+                    player2_move_count += 1
                 if event.key == ord("s"):
-                    self.player2.move(dy=1)                    
+                    self.player2.move(dy=1)        
+                    player2_move_count += 1            
+            
 
 
 g = Game()
 
-while True:
-    g.new()
-    g.run()
+grade_choice = ""
+
+print("A. K - 2")
+print("B. 3 - 5")
+print("C. 6 - 8")
+grade_choice = input("What grade level would you like to play: ")
+grade_choice = grade_choice.lower()
+if grade_choice == "a":
+    while True:
+        g.new()
+        g.run_random()
+        print()
+if grade_choice == "b" or grade_choice == "c":
+    while True:
+        g.new()
+        g.run()
+        print()
+
+
+
     
 
 
