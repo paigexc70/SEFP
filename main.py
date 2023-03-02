@@ -25,10 +25,7 @@ class Game:
             self.new()
                         
             pygame.display.update()
-            
-    def quit(self):
-        pygame.quit()
-        sys.exit()
+
 
     def draw(self):
         self.draw_grid()
