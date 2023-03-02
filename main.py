@@ -8,12 +8,12 @@ from settings import *
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.Surface([20,30])
+        self.image = pygame.Surface([10,10])
         self.image.fill(YELLOW)
         self.rect = self.image.get_rect()
 
 
-
+all_sprites = pygame.sprite.Group()
 
 class Game:
 
@@ -23,6 +23,8 @@ class Game:
         self.DISPLAYSURF = pygame.display.set_mode((WINDOW_SIZE),pygame.RESIZABLE)
         self.clock = pygame.time.Clock()
         self.FPS = 60
+
+        
 
     def run(self):
         self.playing = True
@@ -39,6 +41,7 @@ class Game:
 
     def draw(self):
         self.draw_grid()
+        all_sprites.draw(self.DISPLAYSURF)
         pygame.display.flip()
             
     def draw_grid(self):
@@ -48,11 +51,17 @@ class Game:
                 pygame.draw.rect(self.DISPLAYSURF, WHITE, rect, 1)
 
     def update(self):
-        pass
+        all_sprites.update()
 
     def new(self):
+        """
+        self.all_sprites = pygame.sprite.Group()
         self.player = Player()
-             
+        self.all_sprites.add()
+        self.run
+        """   
+        pass
+      
     def quit(self):
         pygame.quit()
         sys.exit()
@@ -65,7 +74,6 @@ class Game:
     
 
 g = Game()
-
 while True:
     g.run()
     
