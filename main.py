@@ -10,7 +10,7 @@ class Game:
     def __init__(self):
         pygame.init()  #initialize
         pygame.mixer.init()
-        self.DISPLAYSURF = pygame.display.set_mode((WIDTH, HEIGHT),pygame.RESIZABLE)
+        self.DISPLAYSURF = pygame.display.set_mode((WINDOW_SIZE),pygame.RESIZABLE)
         self.clock = pygame.time.Clock()
         self.FPS = 60
 
@@ -22,8 +22,8 @@ class Game:
             self.events()
             self.update()
             self.draw()
-
-            
+            self.draw_grid()
+                        
             pygame.display.update()
             
     def quit(self):
@@ -35,10 +35,10 @@ class Game:
         pygame.display.flip()
             
     def draw_grid(self):
-        for x in range(0, WIDTH, TILESIZE):
-            pygame.draw.line(self.DISPLAYSURF, LIGHTGREY, (x, 0), (x, HEIGHT))
-        for y in range(0, HEIGHT, TILESIZE):
-            pygame.draw.line(self.DISPLAYSURF, LIGHTGREY, (0, y), (WIDTH, y))
+        for x in range(0, GRID_SIZE * CELL_SIZE, CELL_SIZE):
+            for y in range(0, GRID_SIZE * CELL_SIZE, CELL_SIZE):
+                rect = pygame.Rect(x, y, CELL_SIZE, CELL_SIZE)
+                pygame.draw.rect(self.DISPLAYSURF, WHITE, rect, 1)
 
     def update(self):
         pass

@@ -21,10 +21,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = self.x * TILESIZE
         self.rect.y = self.y * TILESIZE
         
-"""
 
-
-"""
 player = Player()   # spawn player
 player.rect.x = 0   # go to x
 player.rect.y = 0   # go to y
