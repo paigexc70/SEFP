@@ -89,8 +89,14 @@ class Game:
                     self.player.move(dy=-1)
                 if event.key == pygame.K_DOWN:
                     self.player.move(dy=1)
-
-  
+                if event.key == ord('a'):
+                    self.player2.move(dx=-1)
+                if event.key == ord('d'):
+                    self.player2.move(dx=1)
+                if event.key == ord('w'):
+                    self.player2.move(dy=-1)
+                if event.key == ord("s"):
+                    self.player2.move(dy=1)                    
 
 
 g = Game()
