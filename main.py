@@ -62,6 +62,8 @@ class Game:
             self.draw()
             self.update()
             pygame.display.update()
+            pygame.mixer.music.load('music.wav')
+            pygame.mixer.music.play(-1)
             
     def draw(self):
         self.DISPLAYSURF.fill(BGCOLOR)
