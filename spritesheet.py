@@ -1,13 +1,13 @@
 import pygame, sys
 from pygame.locals import *
-
+from settings import *
 """
 class Player(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
         self.groups = game.all_sprites
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
-        self.image = pygame.Surface((TILESIZE, TILESIZE))
+        self.image = pygame.Surface((WINDOW_SIZE))
         self.image.fill(YELLOW)
         self.rect = self.image.get_rect()
         self.x = x
@@ -18,8 +18,8 @@ class Player(pygame.sprite.Sprite):
         self.y += dy
 
     def update(self):
-        self.rect.x = self.x * TILESIZE
-        self.rect.y = self.y * TILESIZE
+        self.rect.x = self.x * WINDOW_SIZE
+        self.rect.y = self.y * WINDOW_SIZE
         
 
 player = Player()   # spawn player

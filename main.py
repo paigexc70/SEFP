@@ -18,7 +18,7 @@ class Game:
         #### run the game loop #####
         self.playing = True
         while self.playing:
-            self.dt = self.clock.tick(self.FPS) / 1000
+            self.dt = self.clock.tick(self.FPS)
             self.events()
             self.update()
             self.draw()

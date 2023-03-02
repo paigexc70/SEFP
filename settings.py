@@ -1,6 +1,6 @@
 import pygame, sys
 from pygame.locals import *
-from spritesheet import *
+
 
 pygame.display.set_caption('Project')
 
