@@ -1,17 +1,30 @@
-##### Objects #####
+import pygame, sys
+from pygame.locals import *
 
 """
 class Player(pygame.sprite.Sprite):
-
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.images = []
-
-        img = pygame.image.load('Media/sp1.png').convert_alpha()
-        self.images.append(img)
-        self.image = self.images[0]
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites
+        pygame.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pygame.Surface((TILESIZE, TILESIZE))
+        self.image.fill(GREEN)
         self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
 
+    def move(self, dx=0, dy=0):
+        self.x += dx
+        self.y += dy
+
+    def update(self):
+        self.rect.x = self.x * TILESIZE
+        self.rect.y = self.y * TILESIZE
+        
+"""
+
+
+"""
 player = Player()   # spawn player
 player.rect.x = 0   # go to x
 player.rect.y = 0   # go to y
