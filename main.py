@@ -47,6 +47,7 @@ class Game:
     def new(self):
         #self.player = Player(self, 0, 0)
         pass
+        
 
     def events(self):
         for event in pygame.event.get():
