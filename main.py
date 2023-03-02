@@ -15,7 +15,6 @@ class Game:
         self.FPS = 60
 
     def run(self):
-        #### run the game loop #####
         self.playing = True
         while self.playing:
             self.dt = self.clock.tick(self.FPS)
@@ -45,8 +44,8 @@ class Game:
         pass
 
     def new(self):
-        #self.player = Player(self, 0, 0)
         pass
+        
         
 
     def events(self):
