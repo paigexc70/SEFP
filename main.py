@@ -23,6 +23,7 @@ class Game:
             self.update()
             self.draw()
             self.draw_grid()
+            self.new()
                         
             pygame.display.update()
             
@@ -41,6 +42,10 @@ class Game:
                 pygame.draw.rect(self.DISPLAYSURF, WHITE, rect, 1)
 
     def update(self):
+        pass
+
+    def new(self):
+        #self.player = Player(self, 0, 0)
         pass
 
     def events(self):
