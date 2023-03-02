@@ -14,3 +14,4 @@ WINDOW_SIZE = (GRID_SIZE * CELL_SIZE, GRID_SIZE * CELL_SIZE)
 pygame.display.set_caption('Project')
 
 
+DISPLAYSURF = pygame.display.set_mode(WINDOW_SIZE)

@@ -6,15 +6,6 @@ from settings import *
 from spritesheet import *
 
 
-pygame.init()  #initialize
-pygame.mixer.init()
-clock = pygame.time.Clock()
-
-##### pygame window #####
-DISPLAYSURF = pygame.display.set_mode(WINDOW_SIZE)
-
-
-
 """
 ##### grid ###
 for i in range(0, 500, 50):
@@ -25,10 +16,25 @@ for i in range(0, 500, 50):
 class Game:
 
     def __init__(self):
-        pass
+        pygame.init()  #initialize
+        pygame.mixer.init()
+        
+
 
     def run(self):
-        pass  #game loop
+        #### run the game loop #####
+        while True:
+
+            clock.tick(FPS)
+
+            for event in pygame.event.get():
+             if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+
+            DISPLAYSURF.fill(GREY)
+            pygame.display.flip()
+            pygame.display.update()
 
     def draw(self):
         pass
@@ -39,19 +45,10 @@ class Game:
     def events(self):
         pass
 
-#### run the game loop #####
+g = Game()
 while True:
-
-    clock.tick(FPS)
-
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
-
-        DISPLAYSURF.fill(GREY)
-        pygame.display.flip()
-        pygame.display.update()
+    g.run()
+    g.new()
 
 
 """
