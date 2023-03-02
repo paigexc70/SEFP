@@ -8,7 +8,7 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pygame.Surface((TILESIZE, TILESIZE))
-        self.image.fill(GREEN)
+        self.image.fill(YELLOW)
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y

@@ -16,16 +16,19 @@ class Game:
 
     def run(self):
         #### run the game loop #####
-        while True:
+        self.playing = True
+        while self.playing:
+            self.dt = self.clock.tick(self.FPS) / 1000
+            self.events()
+            self.update()
+            self.draw()
 
-            for event in pygame.event.get():
-             if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
-
-            #self.DISPLAYSURF.fill(GREY)
             pygame.display.flip()
             pygame.display.update()
+            
+    def quit(self):
+        pygame.quit()
+        sys.exit()
 
     def draw(self):
         pass
@@ -37,7 +40,11 @@ class Game:
         pass
 
     def events(self):
-        pass
+        for event in pygame.event.get():
+             if event.type == QUIT:
+                 self.quit()
+
+    
 
 g = Game()
 while True:
