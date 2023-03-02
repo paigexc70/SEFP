@@ -3,7 +3,17 @@ from pygame.locals import *
 import random
 import os
 from settings import *
-from spritesheet import *
+
+### Sprites ###
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.Surface([20,30])
+        self.image.fill(YELLOW)
+        self.rect = self.image.get_rect()
+
+
+
 
 class Game:
 
@@ -43,8 +53,9 @@ class Game:
     def new(self):
         pass
         
+        pygame.quit()
+        sys.exit()
         
-
     def events(self):
         for event in pygame.event.get():
              if event.type == QUIT:
@@ -53,9 +64,10 @@ class Game:
     
 
 g = Game()
+
 while True:
     g.run()
-    g.new()
+    
 
 
 """
