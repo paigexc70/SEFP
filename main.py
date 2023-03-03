@@ -55,11 +55,11 @@ class Game:
             self.update()
            
 
-    def run(self):
+    def run(self, player_count):
         self.playing = True
         while self.playing:
             self.dt = self.clock.tick(self.FPS)
-            self.move_events()
+            self.move_events(player_count)
             self.draw()
             self.update()
             pygame.display.update()
@@ -82,11 +82,46 @@ class Game:
     def update(self):
         self.all_sprites.update()         
             
-    def new(self):
+    def new(self, player_count, grade_choice):
         self.all_sprites = pygame.sprite.Group()
-        self.player = Player(self, 0,0)
-        self.player2 = Player(self, 9,9)
-        self.all_sprites.add(self.player, self.player2)         
+        if grade_choice == "a":
+            self.player1 = Player(self, 0, 0)
+            self.player2 = Player(self, 9, 9)
+            self.all_sprites.add(self.player1, self.player2) 
+        if grade_choice == "b" or grade_choice == "c":
+            if player_count == 3:
+                player1_x = int(input("Player 1, please enter the x axis you want to start on: "))
+                player1_y = int(input("Player 1, please enter the y axis you want to start on: "))
+                self.player1 = Player(self, player1_x, player1_y)
+                player2_x = int(input("Player 2, please enter the x axis you want to start on: "))
+                player2_y = int(input("Player 2, please enter the y axis you want to start on: "))
+                self.player2 = Player(self, player2_x, player2_y)
+                player3_x = int(input("Player 3, please enter the x axis you want to start on: "))
+                player3_y = int(input("Player 3, please enter the y axis you want to start on: "))
+                self.player3 = Player(self, player3_x, player3_y)
+                self.all_sprites.add(self.player1, self.player2, self.player3) 
+            elif player_count == 4:
+                player1_x = int(input("Player 1, please enter the x axis you want to start on: "))
+                player1_y = int(input("Player 1, please enter the y axis you want to start on: "))
+                self.player1 = Player(self, player1_x, player1_y)
+                player2_x = int(input("Player 2, please enter the x axis you want to start on: "))
+                player2_y = int(input("Player 2, please enter the y axis you want to start on: "))
+                self.player2 = Player(self, player2_x, player2_y)
+                player3_x = int(input("Player 3, please enter the x axis you want to start on: "))
+                player3_y = int(input("Player 3, please enter the y axis you want to start on: "))
+                self.player3 = Player(self, player3_x, player3_y)
+                player4_x = int(input("Player 4, please enter the x axis you want to start on: "))
+                player4_y = int(input("Player 4, please enter the y axis you want to start on: "))
+                self.player4 = Player(self, player4_x, player4_y)
+                self.all_sprites.add(self.player1, self.player2, self.player3, self.player4)
+            else:
+                player1_x = int(input("Player 1, please enter the x axis you want to start on: "))
+                player1_y = int(input("Player 1, please enter the y axis you want to start on: "))
+                self.player1 = Player(self, player1_x, player1_y)
+                player2_x = int(input("Player 2, please enter the x axis you want to start on: "))
+                player2_y = int(input("Player 2, please enter the y axis you want to start on: "))
+                self.player2 = Player(self, player2_x, player2_y)
+                self.all_sprites.add(self.player1, self.player2)        
         
              
     def quit(self):
@@ -101,14 +136,15 @@ class Game:
                 if event.key == pygame.K_ESCAPE:
                     self.quit()
                 if event.key == pygame.K_LEFT:
-                    self.player.get_random()
+                    self.player1.get_random()
                 if event.key == pygame.K_RIGHT:
                     self.player2.get_random()
 
-    def move_events(self):
-        players_move_count = []
+    def move_events(self, player_count):
         player1_move_count = 0
         player2_move_count = 0
+        player3_move_count = 0
+        player4_move_count = 0
         for event in pygame.event.get():
             if event.type == QUIT:
                  self.quit()
@@ -116,16 +152,16 @@ class Game:
                 if event.key == pygame.K_ESCAPE:
                     self.quit()
                 if event.key == pygame.K_LEFT:
-                    self.player.move(dx=-1)
+                    self.player1.move(dx=-1)
                     player1_move_count += 1
                 if event.key == pygame.K_RIGHT:
-                    self.player.move(dx=1)
+                    self.player1.move(dx=1)
                     player1_move_count += 1
                 if event.key == pygame.K_UP:
-                    self.player.move(dy=-1)
+                    self.player1.move(dy=-1)
                     player1_move_count += 1
                 if event.key == pygame.K_DOWN:
-                    self.player.move(dy=1)
+                    self.player1.move(dy=1)
                     player1_move_count += 1
                 if event.key == ord('a'):
                     self.player2.move(dx=-1)
@@ -138,8 +174,34 @@ class Game:
                     player2_move_count += 1
                 if event.key == ord("s"):
                     self.player2.move(dy=1)        
-                    player2_move_count += 1            
-            
+                    player2_move_count += 1     
+                if player_count > 2:
+                    if event.key == ord('f'):
+                        self.player3.move(dx=-1)
+                        player3_move_count +=1
+                    if event.key == ord('t'):
+                        self.player3.move(dy=-1)
+                        player3_move_count += 1
+                    if event.key == ord('g'):
+                        self.player3.move(dy=1)
+                        player3_move_count += 1
+                    if event.key == ord('h'):
+                        self.player3.move(dx=1)        
+                        player3_move_count += 1
+                    if player_count > 3:
+                        if event.key == ord('j'):
+                            self.player4.move(dx=-1)
+                            player4_move_count += 1
+                        if event.key == ord('i'):
+                            self.player4.move(dy=-1)
+                            player4_move_count += 1
+                        if event.key == ord('k'):
+                            self.player4.move(dy=1)
+                            player4_move_count += 1
+                        if event.key == ord("l"):
+                            self.player4.move(dx=1)        
+                            player4_move_count += 1    
+                    
     def hit(self):
         print("Hooray! You've met in the woods")
 
@@ -160,16 +222,22 @@ print("B. 3 - 5")
 print("C. 6 - 8")
 grade_choice = input("What grade level would you like to play: ")
 grade_choice = grade_choice.lower()
+
 if grade_choice == "a":
     while True:
-        g.new()
+        g.new(2, grade_choice)
         g.run_random()
         print()
+        
 if grade_choice == "b" or grade_choice == "c":
+    player_count = int(input("How many players would like to play? (max 4, min 2): "))
     while True:
-        g.new()
-        g.run()
+        g.new(player_count, grade_choice)
+        g.run(player_count)
         print()
+
+
+    
 
 
 
