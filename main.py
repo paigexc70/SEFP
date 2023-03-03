@@ -61,7 +61,6 @@ class Game:
             self.draw()
             self.update()
            
-
     def run(self, player_count):
         self.playing = True
         while self.playing:
