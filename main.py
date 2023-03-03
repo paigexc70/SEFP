@@ -140,6 +140,15 @@ class Game:
                     self.player2.move(dy=1)        
                     player2_move_count += 1            
             
+    def hit(self):
+        print("Hooray! You've met in the woods")
+
+    def checkCollisionx(self):
+        pass
+
+    def checkCollisionx(self):
+        pass
+
 
 
 g = Game()
