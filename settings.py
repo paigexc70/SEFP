@@ -1,6 +1,7 @@
 import pygame, sys
 from pygame.locals import *
 
+sound_effect = ('cheer.wav')
 
 pygame.display.set_caption('Project')
 
