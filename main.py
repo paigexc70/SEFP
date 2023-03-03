@@ -32,13 +32,15 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.rect.x = self.x * CELL_SIZE
         self.rect.y = self.y * CELL_SIZE
-
-    def collide(self, spriteGroup):
-        pass
+        
+    def remove(self):
+        self.kill()
+        
         #pygame.sprite.spritecollide(self, spriteGroup, False)
+        
 
     
-# all_sprites = pygame.sprite.Group()
+all_sprites = pygame.sprite.Group()
 # hit_box = (#,#,#,#)
 
 class Game:
@@ -136,6 +138,8 @@ class Game:
     def quit(self):
         pygame.quit()
         sys.exit()
+        
+    
 
     def random_events(self):
         for event in pygame.event.get():
@@ -148,6 +152,8 @@ class Game:
                     self.player1.get_random()
                 if event.key == pygame.K_RIGHT:
                     self.player2.get_random()
+                self.checkCollision(2)
+                
 
     def move_events(self, player_count):
         player1_move_count = 0
@@ -183,7 +189,8 @@ class Game:
                     player2_move_count += 1
                 if event.key == ord("s"):
                     self.player2.move(dy=1)        
-                    player2_move_count += 1     
+                    player2_move_count += 1
+                self.checkCollision(2)    
                 if player_count > 2:
                     if event.key == ord('f'):
                         self.player3.move(dx=-1)
@@ -197,6 +204,7 @@ class Game:
                     if event.key == ord('h'):
                         self.player3.move(dx=1)        
                         player3_move_count += 1
+                    self.checkCollision(3)
                     if player_count > 3:
                         if event.key == ord('j'):
                             self.player4.move(dx=-1)
@@ -210,16 +218,49 @@ class Game:
                         if event.key == ord("l"):
                             self.player4.move(dx=1)        
                             player4_move_count += 1    
-                    
+                        self.checkCollision(4)
+                   
+                      
     def hit(self):
         print("Hooray! You've met in the woods")
-        #pygame.mixer.music.load('cheer.wav')
-
-    def checkCollisionx(self):
-        pass
-
-    def checkCollisionx(self):
-        pass
+        pygame.mixer.music.load('cheer.wav')
+        pygame.mixer.music.set_volume(0.7)
+        pygame.mixer.music.play(-1)
+        
+    def checkCollision(self, player_count):
+        if player_count == 2:
+            if self.player2.x == self.player1.x and self.player2.y == self.player1.y:
+                self.player2.x = self.player2.y = -100
+                self.player2.remove()
+                self.hit()
+                print("Player 2 collided with player 1! You guys will now travel together using player 1's controls.")
+        if player_count == 3:
+            if self.player3.x == self.player1.x and self.player3.y == self.player1.y:
+                self.player3.x = self.player3.y = -200
+                self.player3.remove()
+                self.hit()
+                print("Player 3 collided with player 1! You guys will now travel together using player 1's controls.")
+            if self.player3.x == self.player2.x and self.player3.y == self.player2.y:
+                self.player3.x = self.player3.y = -300
+                self.player3.remove()
+                self.hit()
+                print("Player 3 collided with player 2! You guys will now travel together using player 2's controls.")
+        if player_count == 4:
+            if self.player4.x == self.player3.x and self.player4.y == self.player3.y:
+                self.player4.x = self.player4.y = -400
+                self.player4.remove()
+                self.hit()
+                print("Player 4 collided with player 3! You guys will now travel together using player 3's controls.")
+            if self.player4.x == self.player2.x and self.player4.y == self.player2.y:
+                self.player4.x = self.player4.y = -500
+                self.player4.remove()
+                self.hit()
+                print("Player 4 collided with player 2! You guys will now travel together using player 2's controls.")
+            if self.player4.x == self.player1.x and self.player4.y == self.player1.y:
+                self.player4.x = self.player4.y = -600
+                self.player4.remove()
+                self.hit()
+                print("Player 4 collided with player 1! You guys will now travel together using player 1's controls.")
 
 
 
