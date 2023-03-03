@@ -16,6 +16,8 @@ class Player(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         
+       # self.hitbox = (self.x, self.y, 0, 0)
+        
         
     def move(self, dx=0, dy=0):
         self.x += dx
@@ -33,6 +35,7 @@ class Player(pygame.sprite.Sprite):
 
     
 # all_sprites = pygame.sprite.Group()
+# hit_box = (x,x,x,x)
 
 class Game:
 
@@ -71,6 +74,9 @@ class Game:
         self.DISPLAYSURF.fill(BGCOLOR)
         self.draw_grid()
         self.all_sprites.draw(self.DISPLAYSURF)
+
+        #self.draw.rect(self.DISPLAYSURF, hit_box, player1, player2)
+
         pygame.display.flip()     
         
     def draw_grid(self):
