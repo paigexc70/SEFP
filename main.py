@@ -33,9 +33,13 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = self.x * CELL_SIZE
         self.rect.y = self.y * CELL_SIZE
 
+    def collide(self, spriteGroup):
+        pass
+        #pygame.sprite.spritecollide(self, spriteGroup, False)
+
     
 # all_sprites = pygame.sprite.Group()
-# hit_box = (x,x,x,x)
+# hit_box = (#,#,#,#)
 
 class Game:
 
@@ -148,6 +152,7 @@ class Game:
             
     def hit(self):
         print("Hooray! You've met in the woods")
+        #pygame.mixer.music.load('cheer.wav')
 
     def checkCollisionx(self):
         pass
