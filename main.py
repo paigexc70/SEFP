@@ -42,7 +42,9 @@ class Game:
         self.DISPLAYSURF = pygame.display.set_mode((WINDOW_SIZE), pygame.RESIZABLE)
         self.clock = pygame.time.Clock()
         self.FPS = 60
-    
+        pygame.mixer.music.load('music.wav')
+        pygame.mixer.music.set_volume(0.6)
+        pygame.mixer.music.play(-1)
 
     def run_random(self):
         self.playing = True
@@ -51,9 +53,7 @@ class Game:
             self.random_events()
             self.draw()
             self.update()
-            pygame.display.update()
-            pygame.mixer.music.load('music.wav')
-            pygame.mixer.music.play(-1)
+           
 
     def run(self):
         self.playing = True
@@ -64,6 +64,7 @@ class Game:
             self.update()
             pygame.display.update()
             pygame.mixer.music.load('music.wav')
+            pygame.mixer.music.set_volume(0.7)
             pygame.mixer.music.play(-1)
             
     def draw(self):
