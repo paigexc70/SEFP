@@ -16,7 +16,7 @@ class Player(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         
-       # self.hitbox = (self.x, self.y, 0, 0)
+       
         
         
     def move(self, dx=0, dy=0):
@@ -36,12 +36,12 @@ class Player(pygame.sprite.Sprite):
     def remove(self):
         self.kill()
         
-        #pygame.sprite.spritecollide(self, spriteGroup, False)
+        
         
 
     
 all_sprites = pygame.sprite.Group()
-# hit_box = (#,#,#,#)
+
 
 class Game:
 
@@ -79,9 +79,6 @@ class Game:
         self.DISPLAYSURF.fill(BGCOLOR)
         self.draw_grid()
         self.all_sprites.draw(self.DISPLAYSURF)
-
-        #self.draw.rect(self.DISPLAYSURF, hit_box, player1, player2)
-
         pygame.display.flip()     
         
     def draw_grid(self):
@@ -222,10 +219,10 @@ class Game:
                    
                       
     def hit(self):
-        print("Hooray! You've met in the woods")
         pygame.mixer.music.load('cheer.wav')
         pygame.mixer.music.set_volume(0.7)
         pygame.mixer.music.play(-1)
+        print("Hooray! You've met in the woods")
         
     def checkCollision(self, player_count):
         if player_count == 2:
