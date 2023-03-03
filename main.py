@@ -24,8 +24,8 @@ class Player(pygame.sprite.Sprite):
         self.y += dy
 
     def get_random(self, x=0, y=0):
-        self.x = random.randint(0, GRID_SIZE - 1)
-        self.y = random.randint(0, GRID_SIZE - 1)
+        self.x = random.randint(0, GRID_SIZE_LENGHT - 1)
+        self.y = random.randint(0, GRID_SIZE_HEIGHT - 1)
         
         
     
@@ -60,35 +60,56 @@ class Game:
         while self.playing:
             self.dt = self.clock.tick(self.FPS)
             self.random_events()
-            self.draw()
+            self.draw("a", 9,9)
             self.update()
            
-    def run(self, player_count):
-        self.playing = True
-        while self.playing:
-            self.dt = self.clock.tick(self.FPS)
-            self.move_events(player_count)
-            self.draw()
-            self.update()
-            pygame.display.update()
-            pygame.mixer.music.load('music.wav')
-            pygame.mixer.music.set_volume(0.7)
-            pygame.mixer.music.play(-1)
+    def run(self, player_count, grade_choice):
+        if grade_choice == "a":
+            self.playing = True
+            while self.playing:
+                self.dt = self.clock.tick(self.FPS)
+                self.move_events(player_count)
+                self.update()
+                self.draw(grade_choice)
+                pygame.display.update()
+                pygame.mixer.music.load('music.wav')
+                pygame.mixer.music.set_volume(0.7)
+                pygame.mixer.music.play(-1)
+        elif grade_choice == "b" or grade_choice == "c":
+            GRID_SIZE_LENGHT = int(input("How long would you like the grid to be: "))
+            GRID_SIZE_HEIGHT = int(input("How tall would you like the grid to be: "))
+            WINDOW_SIZE = (GRID_SIZE_LENGHT * CELL_SIZE, GRID_SIZE_HEIGHT * CELL_SIZE)
+            self.DISPLAYSURF = pygame.display.set_mode((WINDOW_SIZE), pygame.RESIZABLE)
+            self.playing = True
+            while self.playing:
+                self.dt = self.clock.tick(self.FPS)
+                self.move_events(player_count)
+                self.update()
+                self.draw(grade_choice,GRID_SIZE_LENGHT, GRID_SIZE_HEIGHT)
+                pygame.display.update()
+                pygame.mixer.music.load('music.wav')
+                pygame.mixer.music.set_volume(0.7)
+                pygame.mixer.music.play(-1)
             
-    def draw(self):
-        self.DISPLAYSURF.fill(BGCOLOR)
-        self.draw_grid()
-        self.all_sprites.draw(self.DISPLAYSURF)
-
-        #self.draw.rect(self.DISPLAYSURF, hit_box, player1, player2)
-
-        pygame.display.flip()     
+    def draw(self, grade_choice, lenght, height):
+        if grade_choice == "a":
+            self.DISPLAYSURF.fill(BGCOLOR)
+            self.draw_grid()
+            self.all_sprites.draw(self.DISPLAYSURF)
+            pygame.display.flip()
+        elif grade_choice == "b" or grade_choice == "c":
+            self.DISPLAYSURF.fill(BGCOLOR)
+            self.draw_grid(lenght, height)
+            self.all_sprites.draw(self.DISPLAYSURF)
+            pygame.display.flip()   
         
-    def draw_grid(self):
-        for x in range(0, GRID_SIZE * CELL_SIZE, CELL_SIZE):
-            for y in range(0, GRID_SIZE * CELL_SIZE, CELL_SIZE):
+    def draw_grid(self, lenght = 10, height = 10):
+        for x in range(0, lenght * CELL_SIZE, CELL_SIZE):
+            for y in range(0, height * CELL_SIZE, CELL_SIZE):
                 rect = pygame.Rect(x, y, CELL_SIZE, CELL_SIZE)
-                pygame.draw.rect(self.DISPLAYSURF, WHITE, rect, 1)   
+                pygame.draw.rect(self.DISPLAYSURF, WHITE, rect, 1) 
+        
+            
                 
     def update(self):
         self.all_sprites.update()         
@@ -190,7 +211,7 @@ class Game:
                 if event.key == ord("s"):
                     self.player2.move(dy=1)        
                     player2_move_count += 1
-                self.checkCollision(2)    
+                self.checkCollision(player_count)    
                 if player_count > 2:
                     if event.key == ord('f'):
                         self.player3.move(dx=-1)
@@ -204,7 +225,7 @@ class Game:
                     if event.key == ord('h'):
                         self.player3.move(dx=1)        
                         player3_move_count += 1
-                    self.checkCollision(3)
+                    self.checkCollision(player_count)
                     if player_count > 3:
                         if event.key == ord('j'):
                             self.player4.move(dx=-1)
@@ -218,7 +239,7 @@ class Game:
                         if event.key == ord("l"):
                             self.player4.move(dx=1)        
                             player4_move_count += 1    
-                        self.checkCollision(4)
+                        self.checkCollision(player_count)
                    
                       
     def hit(self):
@@ -232,36 +253,60 @@ class Game:
             if self.player2.x == self.player1.x and self.player2.y == self.player1.y:
                 self.player2.x = self.player2.y = -100
                 self.player2.remove()
-                self.hit()
                 print("Player 2 collided with player 1! You guys will now travel together using player 1's controls.")
-        if player_count == 3:
+                self.hit()
+                self.quit()
+        elif player_count == 3:
+            if self.player2.x == self.player1.x and self.player2.y == self.player1.y:
+                self.player2.x = self.player2.y = -100
+                self.player2.remove()
+                print("Player 2 collided with player 1! You guys will now travel together using player 1's controls.")
+                player_count -= 1  
             if self.player3.x == self.player1.x and self.player3.y == self.player1.y:
                 self.player3.x = self.player3.y = -200
                 self.player3.remove()
-                self.hit()
                 print("Player 3 collided with player 1! You guys will now travel together using player 1's controls.")
+                player_count -= 1
             if self.player3.x == self.player2.x and self.player3.y == self.player2.y:
                 self.player3.x = self.player3.y = -300
                 self.player3.remove()
-                self.hit()
                 print("Player 3 collided with player 2! You guys will now travel together using player 2's controls.")
-        if player_count == 4:
-            if self.player4.x == self.player3.x and self.player4.y == self.player3.y:
+                player_count -= 1
+            if player_count == 1:
+                self.hit()
+                self.quit()
+        elif player_count == 4:
+            if self.player2.x == self.player1.x and self.player2.y == self.player1.y:
+                self.player2.x = self.player2.y = -100
+                self.player2.remove()
+                print("Player 2 collided with player 1! You guys will now travel together using player 1's controls.")
+                player_count -= 1  
+            elif self.player3.x == self.player1.x and self.player3.y == self.player1.y:
+                self.player3.x = self.player3.y = -200
+                self.player3.remove()
+                print("Player 3 collided with player 1! You guys will now travel together using player 1's controls.")
+                player_count -= 1
+            elif self.player3.x == self.player2.x and self.player3.y == self.player2.y:
+                self.player3.x = self.player3.y = -300
+                self.player3.remove()
+                print("Player 3 collided with player 2! You guys will now travel together using player 2's controls.")
+                player_count -= 1
+            elif self.player4.x == self.player3.x and self.player4.y == self.player3.y:
                 self.player4.x = self.player4.y = -400
                 self.player4.remove()
-                self.hit()
                 print("Player 4 collided with player 3! You guys will now travel together using player 3's controls.")
-            if self.player4.x == self.player2.x and self.player4.y == self.player2.y:
+                player_count -= 1
+            elif self.player4.x == self.player2.x and self.player4.y == self.player2.y:
                 self.player4.x = self.player4.y = -500
                 self.player4.remove()
-                self.hit()
                 print("Player 4 collided with player 2! You guys will now travel together using player 2's controls.")
-            if self.player4.x == self.player1.x and self.player4.y == self.player1.y:
+                player_count -= 1
+            elif self.player4.x == self.player1.x and self.player4.y == self.player1.y:
                 self.player4.x = self.player4.y = -600
                 self.player4.remove()
-                self.hit()
                 print("Player 4 collided with player 1! You guys will now travel together using player 1's controls.")
-
+                player_count -= 1             
+            
 
 
 g = Game()
@@ -284,7 +329,7 @@ if grade_choice == "b" or grade_choice == "c":
     player_count = int(input("How many players would like to play? (max 4, min 2): "))
     while True:
         g.new(player_count, grade_choice)
-        g.run(player_count)
+        g.run(player_count, grade_choice)
         print()
 
 
