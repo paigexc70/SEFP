@@ -38,7 +38,7 @@ class Game:
         print("Hooray! You've all met in the woods!")
         pygame.mixer.music.load('cheer.wav')
         pygame.mixer.music.set_volume(0.7)
-        pygame.mixer.music.play(-1)
+        pygame.mixer.music.play(0)
         
                 
     def x_y_tester(self,x, y):
