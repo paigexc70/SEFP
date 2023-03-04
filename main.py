@@ -8,6 +8,7 @@ from settings import *
 
 all_sprites = pygame.sprite.Group()
 
+
 class Game:
     def __init__(self):
         pygame.init()  #initialize
